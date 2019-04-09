@@ -54,7 +54,9 @@ public class UFrontController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "index.jsp";
 		} else if (com.equals("/UserUpdateForm.user")) {
-			
+			command = new UserUpdateFormCmd();
+			command.execute(request, response);
+			viewPage = "userUpdateForm.jsp";
 		} else if (com.equals("/UserUpdate.user")) {
 			command = new UserUpdateCmd();
 			command.execute(request, response);

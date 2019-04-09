@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,6 +52,7 @@
 						aria-haspopup="true" aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
+						<li><a href="UserUpdateForm.user">회원 정보 수정</a></li>
 						<li><a href="UserLogout.user">로그아웃</a></li>
 					</ul>
 					

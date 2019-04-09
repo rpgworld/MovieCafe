@@ -43,7 +43,7 @@
 			<div class="col-lg-4">
 			<div class="jumbotron">
 				<form action="UserLogin.user" method="post">
-					<h3 style="text-align: center;"> 회원 가입 양식</h3>
+					<h3 style="text-align: center;"> 회원 로그인 양식</h3>
 					<div class="form-group">
 						<input type="text" class="form-control" name="userID" placeholder="이이디" maxlength="20">
 					</div>

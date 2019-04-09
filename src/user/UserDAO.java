@@ -138,7 +138,7 @@ public class UserDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String SQL = "UPDATE USER  SET userPW=?, userName=?, userGender=?, userEmail=? WHERE userID=?";
+			String SQL = "UPDATE USER SET userPW=?, userName=?, userGender=?, userEmail=? WHERE userID=?";
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, userPW);
 			pstmt.setString(2, userName);
