@@ -1,0 +1,86 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+@import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+* {
+	font-family : 'Nanum Gothic';
+}
+h5 {
+	font-family: 'Noto Sans KR';
+	font-size: 15px;
+}
+h4 {
+	font-family: 'Noto Sans KR';
+}
+h3 {
+	font-family : 'Hanna';
+}
+h2 {
+	font-family : 'Hanna';
+}
+h1 {
+	font-family : 'Hanna';
+}
+a, a:hover {
+	color: #000000;
+	
+}
+
+/* index.jsp 점보트론 디자인 처리 */
+#mainJumbotron {
+	background-image: url('../images/jumbotronBackground.png');
+	background-size: cover;
+	text-shadow: black 0.1em 0.1em 0.1em; 
+	color: white;
+}
+
+/* index.jsp Carousel 디자인 처리 */
+.myCarousel{
+
+}
+
+/* 테이블 관련 디자인 처리 */
+thead th {
+	background-color: #006DCC;
+	color: white;
+	text-align: center;
+}
+tr td:first-child,
+tr th:first-child {
+	border-top-left-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+tr td:last-child,
+tr th:last-child {
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+/* profile.jsp 인용구 디자인 처리 */
+blockquote {
+	background: #f9f9f9;
+	border-left: 10px solid #cccccc;
+	margin: 1.5em 10px;
+	padding: 0.5em 10px;
+	quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+	color: #cccccc;
+	content: open-quote;
+	font-size: 3em;
+	line-height: 0.1em;
+	margin-left: 0.25em;
+	vertical-align: -0.4em;
+}
+blockquote:after {
+	color: #cccccc;
+	content: close-quote;
+	font-size: 3em;
+	line-height: 0.1em;
+	margin-left: 0.25em;
+	vertical-align: -0.4em;
+}
+
+/* footer 디자인 처리 */
+footer {
+	margin-top: 15px;
+}
