@@ -89,4 +89,76 @@ public class UserDAO {
 		}
 	}
 	
+	// 회원 정보 보기
+	public UserDTO userUpdateForm(String userID) {
+		UserDTO writing = new UserDTO();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "SELECT * FROM USER WHERE userID=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String userPW = rs.getString("userPW");
+				String userName = rs.getString("userName");
+				String userGender = rs.getString("userGender");
+				String userEmail = rs.getString("userEmail");
+				
+				writing.setUserID(userID);
+				writing.setUserPW(userPW);
+				writing.setUserName(userName);
+				writing.setUserGender(userGender);
+				writing.setUserEmail(userEmail);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return writing;
+	}
+	// 회원 정보 수정
+	public void userUpdate(String userID, String userPW, String userName, String userGender, String userEmail) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "UPDATE USER  SET userPW=?, userName=?, userGender=?, userEmail=? WHERE userID=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userPW);
+			pstmt.setString(2, userName);
+			pstmt.setString(3, userGender);
+			pstmt.setString(4, userEmail);
+			pstmt.setString(5, userID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 }

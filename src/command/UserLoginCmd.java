@@ -2,6 +2,7 @@ package command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import user.*;
 
@@ -17,5 +18,10 @@ public class UserLoginCmd implements Command{
 		
 		UserDAO userDAO = new UserDAO();
 		login_check = userDAO.login(userID, userPW);
+		
+		if(login_check == true) {
+			HttpSession session = request.getSession();
+			session.setAttribute("userID", request.getAttribute("userID"));
+		}
 	}
 }

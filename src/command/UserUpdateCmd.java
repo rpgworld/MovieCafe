@@ -1,0 +1,24 @@
+package command;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import user.*;
+
+public class UserUpdateCmd implements Command{
+	public void execute(HttpServletRequest request, HttpServletResponse response) {
+		String userID = request.getParameter("userID");
+		String userPW = request.getParameter("userPW");
+		String userName = request.getParameter("userName");
+		String userGender = request.getParameter("userGender");
+		String userEmail = request.getParameter("userEmail");
+		
+		UserDAO userDAO = new UserDAO();
+		userDAO.userUpdate(userID, userPW, userName, userGender, userEmail);
+	}
+}
+

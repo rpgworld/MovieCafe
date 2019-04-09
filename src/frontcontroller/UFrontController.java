@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import command.Command;
-import command.UserLoginCmd;
-import command.UserRegisterCmd;
+import command.*;
 
 @WebServlet("*.user")
 public class UFrontController extends HttpServlet {
@@ -47,12 +45,20 @@ public class UFrontController extends HttpServlet {
 			
 			UserLoginCmd userCheckCmd = (UserLoginCmd) command;
 			if(userCheckCmd.login_check) {
-				HttpSession session = request.getSession();
-				session.setAttribute("userID", request.getAttribute("userID"));
 				viewPage = "index.jsp";
 			} else {
 				viewPage = "login.jsp";
 			}
+		} else if (com.equals("/UserLogout.user")){
+			command = new UserLogoutCmd();
+			command.execute(request, response);
+			viewPage = "index.jsp";
+		} else if (com.equals("/UserUpdateForm.user")) {
+			
+		} else if (com.equals("/UserUpdate.user")) {
+			command = new UserUpdateCmd();
+			command.execute(request, response);
+			viewPage = "index.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
