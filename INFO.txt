@@ -1,5 +1,37 @@
 1. DB
+CREATE TABLE USER(
+PID bigint(20) unsigned auto_increment,
+userID varchar(20),
+userPW varchar(20),
+userName varchar(20),
+userGender varchar(20),
+userEmail varchar(50),
+PRIMARY KEY(PID)
+);
+
+CREATE TABLE BBS(
+num int NOT NULL,
+name varchar(20) NOT NULL,
+subject varchar(50) NOT NULL,
+content varchar(500) NOT NULL,
+write_date date NOT NULL,
+write_time time NOT NULL,
+ref int NOT NULL,
+step int NOT NULL,
+lev int NOT NULL,
+read_cnt int NOT NULL,
+child_cnt int NOT NULL,
+PRIMARY KEY(num)
+);
+
 
 
 2. 추가해야 될것
- 1) 회원 로그인이 되어있지 않을때, 혹은 게시글의 수정이나, 삭제에 권한이 없을때, 경고문과 함께 바로 전 페이지로 넘어가도록 구현해야 합니다.
+ 1) 회원 로그인이 되어있지 않을때, 혹은 게시글의 수정이나, 삭제에 권한이 없을때, 
+ 	경고문과 함께 바로 전 페이지로 넘어가도록 구현해야 합니다. 
+ 	(PrintWriter 를 쓰면 되겠지만... script Ajax 를 쓰는 것이 낫지 않을까?)
+ 2) 보안 
+ 	- 제목이나 내용에 script 문을 적었을때를 대비해서 단어를 대체할수 있게 해야합니다.
+ 	- 그리고 url에 파일 이름으로 바로 페이지를 넘길 경우를 대비해서, 로그인이 되지않았을때, 열리지 않도록 해줘야 합니다. 
+ 	  ( 한거 같은데, 빠진게 있는지 확인하기)
+ 	- 이쯤 되면 다시 만드는게 더 나을거 같기도 하고... 

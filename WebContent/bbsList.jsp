@@ -94,16 +94,14 @@
 			</tbody>
 		</table>
 		<div class="row" style="width: 100%; dsplay: table;">
-			<div class="text-left" style="float: left;">
-				<ul class="pagination">
-					<li><a href="bbsList.bbs">첫 페이지</a></li>
-					<c:forEach var="i" begin="1" end="${pageCnt }">
-						<li><a href="bbsList.bbs?curPage=${i }">${i }</a></li>
-					</c:forEach>
-				</ul>
-			</div>
 			<div style="text-align: center;">
 				<form action="bbsSearch.bbs" method="post" class="form-inline">
+
+					<a href="bbsList.bbs" class="btn btn-default pull-left">첫 페이지</a>
+					<c:forEach var="i" begin="1" end="${pageCnt }">
+						<a  class="btn btn-default pull-left" href="bbsList.bbs?curPage=${i }">${i }</a>
+					</c:forEach>
+
 					<select class="form-control" name="serachOption" style="width: 100px;">
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
@@ -114,15 +112,13 @@
 					<span class="form-control-btns">
 	                   <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
 	               </span>
+	               <a href="bbsWriteForm.bbs" class="btn btn-primary pull-right">글쓰기</a>
 				</form>
-			</div>
-			<div style="float: right;">
-				<a href="bbsWriteForm.bbs" class="btn btn-primary pull-right">글쓰기</a>
 			</div>
 		</div>
 	</div>
 	
-	<footer style="background-color: #333333; color: #ffffff">
+	<footer style="background-color: #333333; color: #ffffff; margin-top: 20px;">
 		<div class="container">
 			<h4 style="text-align: center;"> 피드백 문의 : cloud_data@naver.com </h4>
 		</div>
