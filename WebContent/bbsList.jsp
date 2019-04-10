@@ -93,27 +93,33 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="text-left">
-			<ul class="pagination">
-				<li><a href="BbsList.bbs">첫 페이지</a></li>
-				<c:forEach var="i" begin="1" end="${pageCnt }">
-					<li><a href="BbsList.bbs?curPage=${i }">${i }</a></li>
-				</c:forEach>
-			</ul>
-			<form action="bbsSearch.bbs" method="post">
-				<select class="form-control" name="serachOption" style="width: 100px;">
-					<option value="subject">제목</option>
-					<option value="content">내용</option>
-					<option value="both">제목+내용</option>
-					<option value="name">작성자</option>
-				</select>
-				<input type="text" class="form-control" name="searchWord" style="width: 150px;">
-				<span class="input-group-btn">
-                   <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-               </span>
-			</form>
+		<div class="row" style="width: 100%; dsplay: table;">
+			<div class="text-left" style="float: left;">
+				<ul class="pagination">
+					<li><a href="BbsList.bbs">첫 페이지</a></li>
+					<c:forEach var="i" begin="1" end="${pageCnt }">
+						<li><a href="BbsList.bbs?curPage=${i }">${i }</a></li>
+					</c:forEach>
+				</ul>
+			</div>
+			<div style="text-align: center;">
+				<form action="bbsSearch.bbs" method="post" class="form-inline">
+					<select class="form-control" name="serachOption" style="width: 100px;">
+						<option value="subject">제목</option>
+						<option value="content">내용</option>
+						<option value="both">제목+내용</option>
+						<option value="name">작성자</option>
+					</select>
+					<input type="text" class="form-control" name="searchWord" placeholder="검색" style="width: 150px;">
+					<span class="form-control-btns">
+	                   <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+	               </span>
+				</form>
+			</div>
+			<div style="float: right;">
+				<a href="BbsWriteForm.bbs" class="btn btn-primary pull-right">글쓰기</a>
+			</div>
 		</div>
-		<a href="BbsWriteForm.bbs" class="btn btn-primary">글쓰기</a>
 	</div>
 	
 	<footer style="background-color: #333333; color: #ffffff">
