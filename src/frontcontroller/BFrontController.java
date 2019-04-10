@@ -53,7 +53,7 @@ public class BFrontController extends HttpServlet {
 		} else if (com.equals("/BbsWrite.bbs")) {
 			command = new BbsWriteCmd();
 			command.execute(request, response);
-			viewPage = "bbsList.bbs";
+			viewPage = "BbsList.bbs";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

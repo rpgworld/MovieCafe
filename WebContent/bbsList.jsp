@@ -95,7 +95,7 @@
 		</table>
 		<div class="text-left">
 			<ul class="pagination">
-				<li><a href="BbsList.bbs">첫 페이지로</a></li>
+				<li><a href="BbsList.bbs">첫 페이지</a></li>
 				<c:forEach var="i" begin="1" end="${pageCnt }">
 					<li><a href="BbsList.bbs?curPage=${i }">${i }</a></li>
 				</c:forEach>
