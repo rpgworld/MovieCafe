@@ -22,7 +22,7 @@
 		<div class="collapse navbar-collapse" id="bs-nav-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="index.jsp">메인</a></li>
-				<li><a href="bbsList.jsp">게시판</a></li>
+				<li><a href="bbsList.bbs">게시판</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -42,7 +42,7 @@
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4">
 			<div class="jumbotron">
-				<form action="UserRegister.user" method="post">
+				<form action="userRegister.user" method="post">
 					<h3 style="text-align: center;"> 회원 가입 양식</h3>
 					<div class="form-group">
 						<input type="text" class="form-control" name="userID" placeholder="이이디" maxlength="20">

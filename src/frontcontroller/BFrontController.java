@@ -36,11 +36,11 @@ public class BFrontController extends HttpServlet {
 		
 		String com = uri.substring(conPath.length());
 		
-		if(com.equals("/BbsList.bbs")) {
+		if(com.equals("/bbsList.bbs")) {
 			command = new BbsListCmd();
 			command.execute(request, response);
 			viewPage = "bbsList.jsp";
-		} else if (com.equals("/BbsWriteForm.bbs")) {
+		} else if (com.equals("/bbsWriteForm.bbs")) {
 			command = new BbsWriteFormCmd();
 			command.execute(request, response);
 			
@@ -50,10 +50,14 @@ public class BFrontController extends HttpServlet {
 			} else {
 				viewPage = "login.jsp";
 			}
-		} else if (com.equals("/BbsWrite.bbs")) {
+		} else if (com.equals("/bbsWrite.bbs")) {
 			command = new BbsWriteCmd();
 			command.execute(request, response);
-			viewPage = "BbsList.bbs";
+			viewPage = "bbsList.bbs";
+		} else if (com.equals("/bbsRead.bbs")) {
+			command = new BbsReadCmd();
+			command.execute(request, response);
+			viewPage = "bbsRead.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

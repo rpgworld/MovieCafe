@@ -29,7 +29,7 @@
 		<div class="collapse navbar-collapse" id="bs-nav-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="index.jsp">메인</a></li>
-				<li class="active"><a href="bbsList.jsp">게시판</a></li>
+				<li class="active"><a href="bbsList.bbs">게시판</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -50,8 +50,8 @@
 						aria-haspopup="true" aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="UserUpdateForm.user">회원 정보 수정</a></li>
-						<li><a href="UserLogout.user">로그아웃</a></li>
+						<li><a href="userUpdateForm.user">회원 정보 수정</a></li>
+						<li><a href="userLogout.user">로그아웃</a></li>
 					</ul>
 					<%
 					}
@@ -96,9 +96,9 @@
 		<div class="row" style="width: 100%; dsplay: table;">
 			<div class="text-left" style="float: left;">
 				<ul class="pagination">
-					<li><a href="BbsList.bbs">첫 페이지</a></li>
+					<li><a href="bbsList.bbs">첫 페이지</a></li>
 					<c:forEach var="i" begin="1" end="${pageCnt }">
-						<li><a href="BbsList.bbs?curPage=${i }">${i }</a></li>
+						<li><a href="bbsList.bbs?curPage=${i }">${i }</a></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -117,7 +117,7 @@
 				</form>
 			</div>
 			<div style="float: right;">
-				<a href="BbsWriteForm.bbs" class="btn btn-primary pull-right">글쓰기</a>
+				<a href="bbsWriteForm.bbs" class="btn btn-primary pull-right">글쓰기</a>
 			</div>
 		</div>
 	</div>

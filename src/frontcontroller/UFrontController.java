@@ -35,11 +35,11 @@ public class UFrontController extends HttpServlet {
 		
 		String com = uri.substring(conPath.length());
 		
-		if(com.equals("/UserRegister.user")) {
+		if(com.equals("/userRegister.user")) {
 			command = new UserRegisterCmd();
 			command.execute(request, response);
 			viewPage="index.jsp";
-		} else if (com.equals("/UserLogin.user")) {
+		} else if (com.equals("/userLogin.user")) {
 			command = new UserLoginCmd();
 			command.execute(request, response);
 			
@@ -49,15 +49,15 @@ public class UFrontController extends HttpServlet {
 			} else {
 				viewPage = "login.jsp";
 			}
-		} else if (com.equals("/UserLogout.user")){
+		} else if (com.equals("/userLogout.user")){
 			command = new UserLogoutCmd();
 			command.execute(request, response);
 			viewPage = "index.jsp";
-		} else if (com.equals("/UserUpdateForm.user")) {
+		} else if (com.equals("/userUpdateForm.user")) {
 			command = new UserUpdateFormCmd();
 			command.execute(request, response);
 			viewPage = "userUpdateForm.jsp";
-		} else if (com.equals("/UserUpdate.user")) {
+		} else if (com.equals("/userUpdate.user")) {
 			command = new UserUpdateCmd();
 			command.execute(request, response);
 			viewPage = "index.jsp";

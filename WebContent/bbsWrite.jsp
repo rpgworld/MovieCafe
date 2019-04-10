@@ -29,7 +29,7 @@
 		<div class="collapse navbar-collapse" id="bs-nav-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="index.jsp">메인</a></li>
-				<li class="active"><a href="bbsList.jsp">게시판</a></li>
+				<li class="active"><a href="bbsList.bbs">게시판</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -50,8 +50,8 @@
 						aria-haspopup="true" aria-expanded="false">회원관리<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="UserUpdateForm.user">회원 정보 수정</a></li>
-						<li><a href="UserLogout.user">로그아웃</a></li>
+						<li><a href="userUpdateForm.user">회원 정보 수정</a></li>
+						<li><a href="userLogout.user">로그아웃</a></li>
 					</ul>
 					<%
 					}
@@ -63,7 +63,7 @@
 	
 	<div class="container">
 		<div class="row">
-			<form method="post" action="BbsWrite.bbs">
+			<form method="post" action="bbsWrite.bbs">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>

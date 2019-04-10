@@ -159,4 +159,65 @@ public class BbsDAO {
 			}
 		}
 	}
+	
+	// 게시글 열람
+	public BbsDTO bbsRead(String inputNum) {
+		BbsDTO writing = new BbsDTO();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "UPDATE BBS SET read_cnt = read_cnt + 1 WHERE num=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			pstmt.executeUpdate();
+			
+			SQL = "SELECT num, name, subject, content, write_date, write_time, ref, step, lev, read_cnt, child_cnt FROM BBS WHERE num=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int num = rs.getInt("num");
+				String name = rs.getString("name");
+				String subject = rs.getString("subject");
+				String content = rs.getString("content");
+				Date writeDate = rs.getDate("write_date");
+				Time writeTime = rs.getTime("write_time");
+				int ref = rs.getInt("ref");
+				int step = rs.getInt("step");
+				int lev = rs.getInt("lev");
+				int readCnt = rs.getInt("read_cnt");
+				int childCnt = rs.getInt("child_cnt");
+				
+				writing.setNum(num);
+				writing.setName(name);
+				writing.setSubject(subject);
+				writing.setContent(content);
+				writing.setWriteDate(writeDate);
+				writing.setWriteTime(writeTime);
+				writing.setRef(ref);
+				writing.setStep(step);
+				writing.setLev(lev);
+				writing.setReadCnt(readCnt);
+				writing.setChildCnt(childCnt);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return writing;
+	}
 }
