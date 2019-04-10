@@ -9,6 +9,7 @@ import bbs.BbsDAO;
 import bbs.BbsDTO;
 
 public class BbsListCmd implements Command{
+	
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		BbsDAO bbsDAO = new BbsDAO();
 		ArrayList<BbsDTO> list;

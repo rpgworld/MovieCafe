@@ -34,7 +34,7 @@ public class BbsDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String SQL = "SELECT * num, name, subject, content, write_date, write_time, ref, step, lev, read_cnt, child_cnt";
+			String SQL = "SELECT num, name, subject, content, write_date, write_time, ref, step, lev, read_cnt, child_cnt";
 			SQL += " FROM BBS ORDER BY ref desc, step asc";
 			SQL += " LIMIT ?, ?";
 			
@@ -62,13 +62,13 @@ public class BbsDAO {
 				writing.setName(name);
 				writing.setSubject(subject);
 				writing.setContent(content);
-				writing.setWrite_date(writeDate);
-				writing.setWrite_time(writeTime);
+				writing.setWriteDate(writeDate);
+				writing.setWriteTime(writeTime);
 				writing.setRef(ref);
 				writing.setStep(step);
 				writing.setLev(lev);
-				writing.setRead_cnt(readCnt);
-				writing.setChild_cnt(childCnt);
+				writing.setReadCnt(readCnt);
+				writing.setChildCnt(childCnt);
 				
 				list.add(writing);
 			}

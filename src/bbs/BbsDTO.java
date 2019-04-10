@@ -8,13 +8,13 @@ public class BbsDTO {
 	private String name;
 	private String subject;
 	private String content;
-	private Date write_date;
-	private Time write_time;
+	private Date writeDate;
+	private Time writeTime;
 	private int ref;		// 답변 글의 참조 원문 글 번호
 	private int step;		// 답변 글 출력 순서
 	private int lev;		// 답변글 들여쓰기 레벨
-	private int read_cnt; 	// 조회수
-	private int child_cnt;	// 글의 답변 글 수
+	private int readCnt; 	// 조회수
+	private int childCnt;	// 글의 답변 글 수
 	
 	public int getNum() {
 		return num;
@@ -40,17 +40,17 @@ public class BbsDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getWrite_date() {
-		return write_date;
+	public Date getWriteDate() {
+		return writeDate;
 	}
-	public void setWrite_date(Date write_date) {
-		this.write_date = write_date;
+	public void setWriteDate(Date writeDate) {
+		this.writeDate = writeDate;
 	}
-	public Time getWrite_time() {
-		return write_time;
+	public Time getWriteTime() {
+		return writeTime;
 	}
-	public void setWrite_time(Time write_time) {
-		this.write_time = write_time;
+	public void setWriteTime(Time writeTime) {
+		this.writeTime = writeTime;
 	}
 	public int getRef() {
 		return ref;
@@ -70,17 +70,17 @@ public class BbsDTO {
 	public void setLev(int lev) {
 		this.lev = lev;
 	}
-	public int getRead_cnt() {
-		return read_cnt;
+	public int getReadCnt() {
+		return readCnt;
 	}
-	public void setRead_cnt(int read_cnt) {
-		this.read_cnt = read_cnt;
+	public void setReadCnt(int readCnt) {
+		this.readCnt = readCnt;
 	}
-	public int getChild_cnt() {
-		return child_cnt;
+	public int getChildCnt() {
+		return childCnt;
 	}
-	public void setChild_cnt(int child_cnt) {
-		this.child_cnt = child_cnt;
+	public void setChildCnt(int childCnt) {
+		this.childCnt = childCnt;
 	}
 	
 	

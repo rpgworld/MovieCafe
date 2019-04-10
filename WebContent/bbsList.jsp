@@ -77,7 +77,7 @@
 			<tbody>
 				<c:forEach items="${bbsList }" var="bbsDTO">
 					<tr>
-						<td><a href="bbsRead.bbs?num=${bbsDTO.num }"></a></td>
+						<td><a href="bbsRead.bbs?num=${bbsDTO.num }">${bbsDTO.num }</a></td>
 						<td>
 							<c:forEach begin="1" end="${bbsDTO.lev }">
 								<%= "&nbsp; &nbsp;" %>
@@ -91,36 +91,30 @@
 						<td>${bbsDTO.childCnt }</td>
 					</tr>
 				</c:forEach>
-				<tr>
-					<td colspan="7">
-						<div class="text-center">
-							<ul class="pagination">
-								<li><a href="bbsList.bbs">첫 페이지로</a></li>
-								<c:forEach var="i" begin="1" end="${pageCnt }">
-									<li><a href="bbsList.bbs?curPage=${i }">${i }</a></li>
-								</c:forEach>
-							</ul>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="7" align="center">
-						<form action="bbsSearch.bbs" method="post">
-							<select class="selectpicker" name="serachOption">
-								<option value="subject">제목</option>
-								<option value="content">내용</option>
-								<option value="both">제목+내용</option>
-								<option value="name">작성자</option>
-							</select>
-							<input type="text" class="form-control" name="searchWord">
-							<span class="input-group-btn">
-			                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-			                </span>
-						</form>
-					</td>
-				</tr>
 			</tbody>
 		</table>
+		<div class="text-left">
+			<ul class="pagination">
+				<li><a href="bbsList.bbs">첫 페이지로</a></li>
+				<c:forEach var="i" begin="1" end="${pageCnt }">
+					<li><a href="bbsList.bbs?curPage=${i }">${i }</a></li>
+				</c:forEach>
+			</ul>
+		</div>
+		<div>
+			<form action="bbsSearch.bbs" method="post">
+				<select class="form-control" name="serachOption" style="width: 100px;">
+					<option value="subject">제목</option>
+					<option value="content">내용</option>
+					<option value="both">제목+내용</option>
+					<option value="name">작성자</option>
+				</select>
+				<input type="text" class="form-control" name="searchWord" style="width: 150px;">
+				<span class="input-group-btn">
+	                   <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+	               </span>
+			</form>
+		</div>
 	</div>
 	
 	<footer style="background-color: #333333; color: #ffffff">

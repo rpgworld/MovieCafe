@@ -36,7 +36,9 @@ public class BFrontController extends HttpServlet {
 		String com = uri.substring(conPath.length());
 		
 		if(com.equals("/bbsList.bbs")) {
-			
+			command = new BbsListCmd();
+			command.execute(request, response);
+			viewPage="bbsList.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
