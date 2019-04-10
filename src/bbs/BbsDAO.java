@@ -120,4 +120,43 @@ public class BbsDAO {
 		return pageCnt;
 	}
 	
+	// 게시글 등록
+	public void bbsWrite(String name, String subject, String content) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int num = 1;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "SELECT IFNULL(MAX(num), 0) + 1 AS num FROM BBS";
+			pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				num = rs.getInt("num");
+			}
+			
+			SQL = "INSERT INTO BBS VALUES(?, ?, ?, ?, curdate(), curtime(), ?, 0, 0, 0, 0)";
+			pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1, num);
+			pstmt.setString(2, name);
+			pstmt.setString(3, subject);
+			pstmt.setString(4, content);
+			pstmt.setInt(5, num);
+		
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (pstmt != null) pstmt.close();
+				if (conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

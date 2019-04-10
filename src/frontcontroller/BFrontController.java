@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import command.*;
 
@@ -35,10 +36,24 @@ public class BFrontController extends HttpServlet {
 		
 		String com = uri.substring(conPath.length());
 		
-		if(com.equals("/bbsList.bbs")) {
+		if(com.equals("/BbsList.bbs")) {
 			command = new BbsListCmd();
 			command.execute(request, response);
-			viewPage="bbsList.jsp";
+			viewPage = "bbsList.jsp";
+		} else if (com.equals("/BbsWriteForm.bbs")) {
+			command = new BbsWriteFormCmd();
+			command.execute(request, response);
+			
+			BbsWriteFormCmd checkCmd = (BbsWriteFormCmd) command;
+			if(checkCmd.login_check) {
+				viewPage = "bbsWrite.jsp";
+			} else {
+				viewPage = "login.jsp";
+			}
+		} else if (com.equals("/BbsWrite.bbs")) {
+			command = new BbsWriteCmd();
+			command.execute(request, response);
+			viewPage = "bbsList.bbs";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

@@ -62,58 +62,26 @@
 	</nav>
 	
 	<div class="container">
-		<table class="table table-striped" style="text-align: center">
-			<thead>
-				<tr>
-					<th style="text-align: center">글 번호</th>
-					<th style="text-align: center">글 제목</th>
-					<th style="text-align: center">작성자</th>
-					<th style="text-align: center">작성일</th>
-					<th style="text-align: center">작성시간</th>
-					<th style="text-align: center">조회수</th>
-					<th style="text-align: center">답글수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach items="${bbsList }" var="bbsDTO">
-					<tr>
-						<td><a href="bbsRead.bbs?num=${bbsDTO.num }">${bbsDTO.num }</a></td>
-						<td>
-							<c:forEach begin="1" end="${bbsDTO.lev }">
-								<%= "&nbsp; &nbsp;" %>
-							</c:forEach>
-							<a href="bbsRead.bbs?num=${bbsDTO.num }">${bbsDTO.subject }</a>
-						</td>
-						<td>${bbsDTO.name }</td>
-						<td>${bbsDTO.writeDate }</td>
-						<td>${bbsDTO.writeTime }</td>
-						<td>${bbsDTO.readCnt }</td>
-						<td>${bbsDTO.childCnt }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<div class="text-left">
-			<ul class="pagination">
-				<li><a href="BbsList.bbs">첫 페이지로</a></li>
-				<c:forEach var="i" begin="1" end="${pageCnt }">
-					<li><a href="BbsList.bbs?curPage=${i }">${i }</a></li>
-				</c:forEach>
-			</ul>
-			<form action="bbsSearch.bbs" method="post">
-				<select class="form-control" name="serachOption" style="width: 100px;">
-					<option value="subject">제목</option>
-					<option value="content">내용</option>
-					<option value="both">제목+내용</option>
-					<option value="name">작성자</option>
-				</select>
-				<input type="text" class="form-control" name="searchWord" style="width: 150px;">
-				<span class="input-group-btn">
-                   <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-               </span>
+		<div class="row">
+			<form method="post" action="BbsWrite.bbs">
+				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+					<thead>
+						<tr>
+							<th colspan="2" style="background-color: #eeeeee; color: #000000; text-align: center;">게시판 글쓰기 양식</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="text" class="form-control" placeholder="글 제목" name="subject" maxlength="50"></td>
+						</tr>
+						<tr>
+							<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height: 350px;"></textarea></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" class="btn btn-primary pull-right" value="글쓰기">
 			</form>
 		</div>
-		<a href="BbsWriteForm.bbs" class="btn btn-primary">글쓰기</a>
 	</div>
 	
 	<footer style="background-color: #333333; color: #ffffff">
