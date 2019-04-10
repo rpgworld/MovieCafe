@@ -77,14 +77,19 @@
 						<tr>
 							<td><textarea class="form-control" placeholder="글 내용" name="content" maxlength="2048" style="height: 350px;"></textarea></td>
 						</tr>
+						<tr>
+							<td colspan="2" align="right">
+								<a href="bbsList.bbs" class="btn btn-primary pull-left">목록으로</a>
+								<input type="submit" class="btn btn-primary" value="글쓰기">
+							</td>
+						</tr>
 					</tbody>
 				</table>
-				<input type="submit" class="btn btn-primary pull-right" value="글쓰기">
 			</form>
 		</div>
 	</div>
 	
-	<footer style="background-color: #333333; color: #ffffff">
+	<footer style="background-color: #333333; color: #ffffff; margin-top: 20px;">
 		<div class="container">
 			<h4 style="text-align: center;"> 피드백 문의 : cloud_data@naver.com </h4>
 		</div>

@@ -111,6 +111,12 @@
 		</div>
 	</div>
 	
+	<footer style="background-color: #333333; color: #ffffff; margin-top: 20px;">
+		<div class="container">
+			<h4 style="text-align: center;"> 피드백 문의 : cloud_data@naver.com </h4>
+		</div>
+	</footer>
+	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>

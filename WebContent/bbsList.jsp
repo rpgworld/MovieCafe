@@ -64,7 +64,7 @@
 	<div class="container">
 		<table class="table table-striped" style="text-align: center">
 			<thead>
-				<tr>
+				<tr style="background-color: #006DCC; color: white;">
 					<th style="text-align: center">글 번호</th>
 					<th style="text-align: center">글 제목</th>
 					<th style="text-align: center">작성자</th>
