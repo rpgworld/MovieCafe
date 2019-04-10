@@ -64,39 +64,40 @@
 	</nav>
 	
 	<div class="container">
-		<div class="row">
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<thead>
-					<tr>
-						<th colspan="4" style="background-color: #eeeeee; color: #000000; text-align: center;">게시판 글 열람</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>글 제목</td>
-						<td colspan="3"><input type="text" class="form-control" placeholder="글 제목" name="subject" maxlength="50" value="${bbsRead.subject }" readonly></td>
-					</tr>
-					<tr>
-						<td>작성자</td>
-						<td><input type="text" class="form-control" placeholder="작성자" name="userID" maxlength="50" value="${bbsRead.name }" readonly></td>
-						<td>조회수 : ${bbsRead.readCnt }</td>
-						<td>답글수 : ${bbsRead.childCnt }</td>
-					</tr>
-					<tr>
-						<td>글 내용</td>
-						<td colspan="3"><textarea placeholder="글 내용" class="form-control" name="content" maxlength="2048" style="height: 350px;" readonly>${bbsRead.content }</textarea></td>
-					</tr>
-					<tr>
-						<td colspan="4" align="right">
-							<a href="bbsUpdateForm.bbs?num=${bbsRead.num }" class="btn btn-primary">수정</a>
-							<a href="bbsDeleteForm.bbs?num=${bbsRead.num }" class="btn btn-primary">삭제</a>
-							<a href="bbsReplyForm.bbs?num=${bbsRead.num }" class="btn btn-primary">답글</a>
-							<a href="bbsList.bbs" class="btn btn-primary">목록으로</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<form method="post" action="bbsUpdate.bbs">
+			<div class="row">
+				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+					<thead>
+						<tr>
+							<th colspan="4" style="background-color: #eeeeee; color: #000000; text-align: center;">
+							<input type="hidden" name="num" value="${bbsUpdate.num }">게시판 글 수정</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>글 제목</td>
+							<td colspan="3"><input type="text" class="form-control" placeholder="글 제목" name="subject" maxlength="50" value="${bbsUpdate.subject }"></td>
+						</tr>
+						<tr>
+							<td>작성자</td>
+							<td><input type="text" class="form-control" placeholder="작성자" name="name" maxlength="50" value="${bbsUpdate.name }" readonly></td>
+							<td>조회수 : ${bbsUpdate.readCnt }</td>
+							<td>답글수 : ${bbsUpdate.childCnt }</td>
+						</tr>
+						<tr>
+							<td>글 내용</td>
+							<td colspan="3"><textarea placeholder="글 내용" class="form-control" name="content" maxlength="2048" style="height: 350px;">${bbsUpdate.content }</textarea></td>
+						</tr>
+						<tr>
+							<td colspan="4" align="right">
+								<a href="bbsList.bbs" class="btn btn-primary">목록으로</a>
+								<input type="submit" class="btn btn-primary" value="수정">
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
 	</div>
 	
 	<footer style="background-color: #333333; color: #ffffff">

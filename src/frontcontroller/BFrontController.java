@@ -8,9 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import command.*;
+import command.BbsListCmd;
+import command.BbsReadCmd;
+import command.BbsUpdateCmd;
+import command.BbsUpdateFormCmd;
+import command.BbsWriteCmd;
+import command.BbsWriteFormCmd;
+import command.Command;
 
 
 @WebServlet("*.bbs")
@@ -58,6 +63,20 @@ public class BFrontController extends HttpServlet {
 			command = new BbsReadCmd();
 			command.execute(request, response);
 			viewPage = "bbsRead.jsp";
+		} else if (com.equals("/bbsUpdateForm.bbs")) {
+			command = new BbsUpdateFormCmd();
+			command.execute(request, response);
+			
+			BbsUpdateFormCmd checkCmd = (BbsUpdateFormCmd) command;
+			if(checkCmd.user_check) {
+				viewPage = "bbsUpdate.jsp";
+			} else {	// 권한이 없을때 경고와 함께 바로 전 페이지로 넘어가기를 구현해야 합니다.
+				viewPage = "bbsList.bbs";
+			}
+		} else if (com.equals("/bbsUpdate.bbs")) {
+			command = new BbsUpdateCmd();
+			command.execute(request, response);
+			viewPage = "bbsList.bbs";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

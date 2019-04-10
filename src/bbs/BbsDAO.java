@@ -220,4 +220,129 @@ public class BbsDAO {
 		
 		return writing;
 	}
+	
+	// 게시판 수정
+	public void bbsUpdate(String inputNum, String inputSubject, String inputContent) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "UPDATE BBS SET subject=?, content=? WHERE num=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, inputSubject);
+			pstmt.setString(2, inputContent);
+			pstmt.setInt(3, Integer.parseInt(inputNum));
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 게시판 수정 및 삭제를 위한, 해당 유저인지 확인 기능 조회
+	public boolean bbsUserCheck(String inputNum, String userID) {
+		boolean userCheckOk = false;
+		int userCheck = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "SELECT COUNT(*) AS user_check FROM BBS WHERE num=? and name=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			pstmt.setString(2, userID);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				userCheck = rs.getInt("user_check");
+			}
+			
+			if(userCheck > 0) {
+				userCheckOk = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return userCheckOk;
+	}
+	
+	// 글 수정을 위한 원글 데이터 조회
+	public BbsDTO bbsUpdateForm(String inputNum) {
+		BbsDTO writing = new BbsDTO();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String SQL = "SELECT num, name, subject, content, write_date, write_time, ref, step, lev, read_cnt, child_cnt FROM BBS WHERE num=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int num = rs.getInt("num");
+				String name = rs.getString("name");
+				String subject = rs.getString("subject");
+				String content = rs.getString("content");
+				Date writeDate = rs.getDate("write_date");
+				Time writeTime = rs.getTime("write_time");
+				int ref = rs.getInt("ref");
+				int step = rs.getInt("step");
+				int lev = rs.getInt("lev");
+				int readCnt = rs.getInt("read_cnt");
+				int childCnt = rs.getInt("child_cnt");
+				
+				writing.setNum(num);
+				writing.setName(name);
+				writing.setSubject(subject);
+				writing.setContent(content);
+				writing.setWriteDate(writeDate);
+				writing.setWriteTime(writeTime);
+				writing.setRef(ref);
+				writing.setStep(step);
+				writing.setLev(lev);
+				writing.setReadCnt(readCnt);
+				writing.setChildCnt(childCnt);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return writing;
+	}
 }
