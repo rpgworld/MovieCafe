@@ -345,4 +345,126 @@ public class BbsDAO {
 		
 		return writing;
 	}
+	
+	// 게시글 삭제
+	public void bbsDelete(String inputNum) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "SELECT ref, lev, step FROM BBS WHERE num=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int ref = rs.getInt(1);
+				int lev = rs.getInt(2);
+				int step = rs.getInt(3);
+				bbsDeleteChildCntUpdate(ref, lev, step);
+			}
+			
+			SQL = "DELETE FROM BBS WHERE num=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 삭제 대상인 게시글에 답글이 존재하는지
+	public boolean bbsReplyCheck(String inputNum) {
+		boolean replyCheck = false;
+		int replyCnt = 0;
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "SELECT child_cnt AS reply_check FROM BBS WHERE num=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				replyCnt = rs.getInt("reply_check");
+			}
+			
+			if(replyCnt == 0) {
+				replyCheck = true; // replyCheck 0 인경우 삭제가 가능
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return replyCheck;
+	}
+	
+	// 게시글이 답글일 경우 원글들의 답글 개수 줄이기
+	public void bbsDeleteChildCntUpdate(int ref, int lev, int step) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = null;
+		
+		try {
+			conn = ds.getConnection();
+			for(int updateLev = lev - 1; updateLev >= 0; updateLev--) {
+				SQL = "SELECT MAX(step) FROM BBS WHERE ref=? and lev=? and step<?";
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, ref);
+				pstmt.setInt(2, updateLev);
+				pstmt.setInt(3, step);
+				
+				rs = pstmt.executeQuery();
+				int maxStep = 0;
+				
+				if(rs.next()) {
+					maxStep = rs.getInt(1);
+				}
+				SQL  = "UPDATE BBS SET child_cnt = child_cnt - 1 WHERE ref=? and lev=? and step=?";
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, ref);
+				pstmt.setInt(2, updateLev);
+				pstmt.setInt(3, maxStep);
+				pstmt.executeUpdate();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

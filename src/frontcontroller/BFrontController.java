@@ -13,6 +13,8 @@ import command.BbsListCmd;
 import command.BbsReadCmd;
 import command.BbsUpdateCmd;
 import command.BbsUpdateFormCmd;
+import command.BbsDeleteCmd;
+import command.BbsDeleteCheckCmd;
 import command.BbsWriteCmd;
 import command.BbsWriteFormCmd;
 import command.Command;
@@ -75,6 +77,20 @@ public class BFrontController extends HttpServlet {
 			}
 		} else if (com.equals("/bbsUpdate.bbs")) {
 			command = new BbsUpdateCmd();
+			command.execute(request, response);
+			viewPage = "bbsList.bbs";
+		} else if (com.equals("/bbsDeleteCheck.bbs")) {
+			command = new BbsDeleteCheckCmd();
+			command.execute(request, response);
+			
+			BbsDeleteCheckCmd checkCmd = (BbsDeleteCheckCmd) command;
+			if (checkCmd.reply_check) {
+				viewPage = "bbsDelete.bbs";
+			} else {
+				viewPage = "bbsList.bbs";
+			}
+		} else if (com.equals("/bbsDelete.bbs")) {
+			command = new BbsDeleteCmd();
 			command.execute(request, response);
 			viewPage = "bbsList.bbs";
 		}

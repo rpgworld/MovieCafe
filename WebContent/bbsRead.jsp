@@ -90,7 +90,7 @@
 						<td colspan="4" align="right">
 							<a href="bbsList.bbs" class="btn btn-primary pull-left">목록으로</a>
 							<a href="bbsUpdateForm.bbs?num=${bbsRead.num }" class="btn btn-primary">수정</a>
-							<a href="bbsDeleteForm.bbs?num=${bbsRead.num }" class="btn btn-primary">삭제</a>
+							<a href="bbsDeleteCheck.bbs?num=${bbsRead.num }" class="btn btn-primary">삭제</a>
 							<a href="bbsReplyForm.bbs?num=${bbsRead.num }" class="btn btn-primary">답글</a>
 						</td>
 					</tr>

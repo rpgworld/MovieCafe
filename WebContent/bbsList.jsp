@@ -108,10 +108,8 @@
 						<option value="both">제목+내용</option>
 						<option value="name">작성자</option>
 					</select>
-					<input type="text" class="form-control" name="searchWord" placeholder="검색" style="width: 150px;">
-					<span class="form-control-btns">
-	                   <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-	               </span>
+					<input type="text" class="form-control" name="searchWord" placeholder="키워드" style="width: 150px;">
+					<input type="submit" class="btn btn-default" value="검색">
 	               <a href="bbsWriteForm.bbs" class="btn btn-primary pull-right">글쓰기</a>
 				</form>
 			</div>
