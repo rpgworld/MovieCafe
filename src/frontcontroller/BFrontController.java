@@ -15,6 +15,7 @@ import command.BbsUpdateCmd;
 import command.BbsUpdateFormCmd;
 import command.BbsDeleteCmd;
 import command.BbsDeleteCheckCmd;
+import command.BbsSearchCmd;
 import command.BbsWriteCmd;
 import command.BbsWriteFormCmd;
 import command.Command;
@@ -93,6 +94,10 @@ public class BFrontController extends HttpServlet {
 			command = new BbsDeleteCmd();
 			command.execute(request, response);
 			viewPage = "bbsList.bbs";
+		} else if (com.equals("/bbsSearch.bbs")) {
+			command = new BbsSearchCmd();
+			command.execute(request, response);
+			viewPage = "bbsSearchList.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

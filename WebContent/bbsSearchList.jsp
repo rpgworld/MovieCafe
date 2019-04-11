@@ -102,16 +102,14 @@
 						<a  class="btn btn-default pull-left" href="bbsList.bbs?curPage=${i }">${i }</a>
 					</c:forEach>
 
-					<select class="form-control" name="searchOption" style="width: 100px;">
+					<select class="form-control" name="serachOption" style="width: 100px;">
 						<option value="subject">제목</option>
 						<option value="content">내용</option>
 						<option value="both">제목+내용</option>
 						<option value="name">작성자</option>
 					</select>
-					
 					<input type="text" class="form-control" name="searchWord" placeholder="키워드" style="width: 150px;">
 					<input type="submit" class="btn btn-default" value="검색">
-					
 	               <a href="bbsWriteForm.bbs" class="btn btn-primary pull-right">글쓰기</a>
 				</form>
 			</div>
