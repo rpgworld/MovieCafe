@@ -548,6 +548,207 @@ public class BbsDAO {
 		
 		return list;
 	}
+	
+	// 답글 작성에 필요한 원글 데이터 조회 기능
+	public BbsDTO bbsReplyForm(String inputNum) {
+		BbsDTO writing = new BbsDTO();
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "SELECT num, name, subject, content, write_date, write_time, ref, step, lev, read_cnt, child_cnt FROM BBS WHERE num=?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(inputNum));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				int num = rs.getInt("num");
+				String name = rs.getString("name");
+				String subject = "RE : " + rs.getString("subject");
+				Date writeDate = rs.getDate("write_date");
+				Time writeTime = rs.getTime("write_time");
+				String content = "[원문 : " + writeDate + " " + writeTime + " 작성됨] \n" + rs.getString("content");
+				int ref = rs.getInt("ref");
+				int step = rs.getInt("step");
+				int lev = rs.getInt("lev");
+				int readCnt = rs.getInt("read_cnt");
+				int childCnt = rs.getInt("child_cnt");
+				
+				writing.setNum(num);
+				writing.setName(name);
+				writing.setSubject(subject);
+				writing.setContent(content);
+				writing.setWriteDate(writeDate);
+				writing.setWriteTime(writeTime);
+				writing.setRef(ref);
+				writing.setStep(step);
+				writing.setLev(lev);
+				writing.setReadCnt(readCnt);
+				writing.setChildCnt(childCnt);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return writing;
+	}
+	
+	// 답글 등록 기능
+	public void bbsReply(String num, String name, String subject, String content, String ref, String step, String lev) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int replyNum = 0;
+		int replyStep = 0;
+		String SQL = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			// 답글이 위치할 step 값 가져오고
+			replyStep = bbsReplySearchStep(ref, lev, step);
+			
+			if (replyStep > 0) { 
+				SQL = "UPDATE BBS SET step=step+1 WHERE ref=? and step>=?";
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, Integer.parseInt(ref));
+				pstmt.setInt(2, replyStep);
+				pstmt.executeUpdate();
+			} else {
+				SQL = "SELECT MAX(step) FROM BBS WHERE ref=?";
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, Integer.parseInt(ref));
+				rs = pstmt.executeQuery();
+				if (rs.next()) {
+					replyStep = rs.getInt(1) + 1;
+				}
+			}
+			
+			SQL = "SELECT MAX(num) + 1 AS num FROM BBS";
+			pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				replyNum = rs.getInt("num");
+			}
+			SQL = "INSERT INTO BBS";
+			SQL += " VALUES(?, ?, ?, ?, curdate(), curtime(), ?, ?, ?, 0, 0) ";
+			
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, replyNum);
+			pstmt.setString(2, name);
+			pstmt.setString(3, subject);
+			pstmt.setString(4, content);
+			pstmt.setInt(5, Integer.parseInt(ref));
+			pstmt.setInt(6, replyStep);
+			pstmt.setInt(7, Integer.parseInt(lev) + 1);
+			pstmt.executeUpdate();
+			bbsReplyChildCntUpdate(ref, lev, replyStep);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 답글 출력 위치 step 선정 기능
+	public int bbsReplySearchStep(String ref, String lev, String step) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int replyStep = 0;
+		
+		try {
+			conn = ds.getConnection();
+			String SQL = "SELECT IFNULL(MIN(step), 0) FROM BBS WHERE ref=? and lev <=? and step>?";
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, Integer.parseInt(ref));
+			pstmt.setInt(2, Integer.parseInt(lev));
+			pstmt.setInt(3, Integer.parseInt(step));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				replyStep = rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return replyStep;
+	}
+	
+	// 답글 작성 후 원글들의 답글 개수를 늘려주는 기능
+	public void bbsReplyChildCntUpdate(String ref, String lev, int replyStep) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = null;
+		
+		try {
+			conn = ds.getConnection();
+			for(int updateLev = Integer.parseInt(lev); updateLev >= 0; updateLev--) {
+				SQL = "SELECT MAX(step) FROM BOARD WHERE ref=? and lev=? and step<?";
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, Integer.parseInt(ref));
+				pstmt.setInt(2, updateLev);
+				pstmt.setInt(3, replyStep);
+				
+				rs = pstmt.executeQuery();
+				int maxStep = 0;
+				
+				if (rs.next()) {
+					maxStep = rs.getInt(1);
+				}
+				
+				SQL = "UPDATE BBS SET child_cnt=child_cnt+1 WHERE ref=? and lev=? and step=?";
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setInt(1, Integer.parseInt(ref));
+				pstmt.setInt(2, updateLev);
+				pstmt.setInt(3, maxStep);
+				pstmt.executeUpdate();
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
 
 

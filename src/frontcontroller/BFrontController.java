@@ -18,6 +18,8 @@ import command.BbsDeleteCheckCmd;
 import command.BbsSearchCmd;
 import command.BbsWriteCmd;
 import command.BbsWriteFormCmd;
+import command.BbsReplyCmd;
+import command.BbsReplyFormCmd;
 import command.Command;
 
 
@@ -98,6 +100,20 @@ public class BFrontController extends HttpServlet {
 			command = new BbsSearchCmd();
 			command.execute(request, response);
 			viewPage = "bbsSearchList.jsp";
+		} else if (com.equals("/bbsReplyForm.bbs")) {
+			command = new BbsReplyFormCmd();
+			command.execute(request, response);
+			
+			BbsReplyFormCmd checkCmd = (BbsReplyFormCmd) command;
+			if (checkCmd.login_check) {
+				viewPage = "bbsReply.jsp";
+			} else {
+				viewPage = "login.jsp";
+			}
+		} else if (com.equals("/bbsReply.bbs")) {
+			command = new BbsReplyCmd();
+			command.execute(request, response);
+			viewPage="bbsList.bbs";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
